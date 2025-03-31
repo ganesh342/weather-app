@@ -12,7 +12,8 @@ const Inputs = ({setQuery,setUnits}) => {
   // Example usage
   async function getCityFromLatLng(lat, lng) {
     // Construct the API URL with English language preference
-    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=10&accept-language=en`;
+    const baseUrl = process.env.REACT_APP_MAP_API_BASE_URL;
+    const url = `${baseUrl}?lat=${lat}&lon=${lng}&format=json&zoom=10&accept-language=en`;
     
     try {
       const response = await fetch(url);
