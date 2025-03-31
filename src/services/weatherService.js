@@ -4,7 +4,7 @@ const API_KEY = 'f45e78fb135f48cb9c9104014253103'
 const BASE_URL =  'https://api.weatherapi.com/v1/'
 
 const getWeatherData = (infoType, searchParams) =>{
-    const url =new URL(BASE_URL + infoType)
+    const url =new URL(process.env.BASE_URL + infoType)
     url.search = new URLSearchParams({ key: API_KEY , ...searchParams});
 
     return fetch(url).then((res) => res.json()).then((data) =>data);
