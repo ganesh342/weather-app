@@ -1,6 +1,6 @@
 import {DateTime} from "luxon";
 import {useState} from "react";
-const API_KEY = '777a4b398daa4e67aea164151242007'
+const API_KEY = 'f45e78fb135f48cb9c9104014253103'
 const BASE_URL =  'http://api.weatherapi.com/v1/'
 
 const getWeatherData = (infoType, searchParams) =>{

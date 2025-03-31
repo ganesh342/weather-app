@@ -15,7 +15,7 @@ const App = () => {
 
   const getWeather = async() =>{
     const message = query.q  ?query.q : 'current location';
-    toast.info(`Fetching weather data for ${message.toUpperCase()}`);
+    toast.info(`Fetching weather data for ${message.toUpperCase}`);
     await getFormattedWeatherData({ ...query, units}).then((data) => {
       toast.success(`Fetched weather data for ${data.name}, ${data.country}`)
       setWeather(data);

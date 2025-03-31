@@ -7,11 +7,46 @@ const Inputs = ({setQuery,setUnits}) => {
     if(city !== "") setQuery({q:city,days:7});
   };
    
-  const handleLocationClick = () =>{
+
+  
+  // Example usage
+  async function getCityFromLatLng(lat, lng) {
+    // Construct the API URL with English language preference
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=10&accept-language=en`;
+    
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      if (data.address) {
+        // Check multiple fields to find the city name
+        const city = 
+          data.address.city ||              // Standard city field
+          data.address.town ||              // For smaller towns
+          data.address.village ||           // For rural areas
+          data.address.suburb ||            // Neighborhoods
+          data.address.state_district ||    // Administrative regions (common in India)
+          "City not found";
+        
+        console.log(`The city is: ${city}`);
+        return city;
+      } else {
+        console.log("No address found in response");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching geocoding data:", error);
+      return null;
+    }
+  }
+  
+  
+  const handleLocationClick =  () =>{
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition((position)=>{
         const {latitude,longitude} = position.coords;
-        setQuery({lat:latitude,lon:longitude,days:7});
+        const city = getCityFromLatLng(latitude,longitude);
+        setQuery({q:`${city}`,days:7});
       })
     }
   }
