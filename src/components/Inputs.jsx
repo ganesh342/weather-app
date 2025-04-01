@@ -2,13 +2,76 @@ import {BiSearch,BiCurrentLocation} from "react-icons/bi";
 import {useState} from "react";
 const Inputs = ({setQuery,setUnits}) => {
   const [city, setCity] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
   const [filteredCities, setFilteredCities] = useState([]);
   const [cities] = useState([
-    'New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix',
-    'Philadelphia', 'San Antonio', 'San Diego', 'Dallas', 'Austin',
-    // Add more cities as needed
-  ]);
-
+    "New York City",
+    "Toronto",
+    "Mexico City",
+    "Los Angeles",
+    "Vancouver",
+    "Chicago",
+    "Havana",
+    "Guatemala City",
+    "Panama City",
+    "Montreal",
+    "São Paulo",
+    "Buenos Aires",
+    "Rio de Janeiro",
+    "Lima",
+    "Bogotá",
+    "Santiago",
+    "Caracas",
+    "Quito",
+    "Montevideo",
+    "La Paz",
+    "London",
+    "Paris",
+    "Berlin",
+    "Rome",
+    "Madrid",
+    "Amsterdam",
+    "Vienna",
+    "Prague",
+    "Warsaw",
+    "Athens",
+    "Lagos",
+    "Cairo",
+    "Johannesburg",
+    "Nairobi",
+    "Casablanca",
+    "Addis Ababa",
+    "Accra",
+    "Dakar",
+    "Algiers",
+    "Tunis",
+    "Tokyo",
+    "Beijing",
+    "Delhi",
+    "Bangkok",
+    "Seoul",
+    "Mumbai",
+    "Jakarta",
+    "Singapore",
+    "Manila",
+    "Hanoi",
+    "Sydney",
+    "Auckland",
+    "Melbourne",
+    "Brisbane",
+    "Wellington",
+    "Perth",
+    "Adelaide",
+    "Suva",
+    "Hobart",
+    "Nouméa"
+  ]
+  );
+  const handleSuggestionClick = (suggestion) => {
+    setSelectedCity(suggestion);
+    setCity(suggestion);
+    setFilteredCities([]);
+  };
   const handleSearchClick = () =>{
     if(city !== "") setQuery({q:city,days:7});
   };
@@ -28,11 +91,6 @@ const Inputs = ({setQuery,setUnits}) => {
     }
   };
 
-  const handleSuggestionClick = (suggestion) => {
-    setCity(suggestion);
-    setFilteredCities([]);
-  };
-
   function TopButtons() {
     const cities = [
       { id: 1, name: 'New York' },
@@ -42,13 +100,14 @@ const Inputs = ({setQuery,setUnits}) => {
       { id: 5, name: 'Miami' }
     ];
   
-    const [selectedCity, setSelectedCity] = useState('');
   
     const handleCityChange = (event) => {
       setSelectedCity(event.target.value);
       setCity(event.target.value);
       setQuery({q:event.target.value,days:7})
     };
+
+
     const handleSearch = () => {
       // Add your search functionality here
       console.log(`Searching in ${selectedCity}`);
@@ -57,9 +116,9 @@ const Inputs = ({setQuery,setUnits}) => {
     return (
         <div className="flex items-center justify-start">
           <select
-            value={selectedCity}
+            value={"Select City"}
             onChange={handleCityChange}
-            className="appearance-none bg-white border-none rounded-full py-2 px-4 w-48 text-base font-sans cursor-pointer shadow-md hover:shadow-lg focus:shadow-outline focus:outline-none transition-all duration-300"
+            className="appearance-none bg-white border-none rounded-full py-5  w-60 text-base font-sans cursor-pointer shadow-md hover:shadow-lg focus:shadow-outline focus:outline-none transition-all duration-300"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
               backgroundRepeat: 'no-repeat',
@@ -126,7 +185,7 @@ const Inputs = ({setQuery,setUnits}) => {
   };
 
   return (
-    <div className="flex flex-row justify-start">
+    <div className="flex flex-row justify-start gap-7">
       <TopButtons/>
     <div className="flex flex-row justify-start">
       <div className="flex flex-row justify-center my-6">
@@ -136,15 +195,15 @@ const Inputs = ({setQuery,setUnits}) => {
             value={city}
             onChange={handleInputChange}
             placeholder="Search by city..."
-            className="text-gray-500 text-xl font-light p-2 w-full shadow-xl capitalize focus:outline-none placeholder:lowercase border-r-2"
+            className="text-gray-500 text-xl font-light p-5 w-full shadow-xl capitalize focus:outline-none placeholder:lowercase rounded-md"
           />
           <BiSearch
-            size={30}
-            className="cursor-pointer transition ease-out hover:scale-125"
+            size={40}
+            className="cursor-pointer transition ease-out hover:scale-125 mx-4"
             onClick={handleSearchClick}
           />
           <BiCurrentLocation
-            size={30}
+            size={40}
             className="cursor-pointer transition ease-out hover:scale-125"
             onClick={handleLocationClick}
           />
