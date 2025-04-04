@@ -1,5 +1,4 @@
 import Inputs from "./components/Inputs";
-import TopButtons from "./components/TopButtons";
 import TimeAndLocation from "./components/TimeAndLocation";
 import TempAndDetails from "./components/TempAndDetails";
 import ForeCast from "./components/ForeCast";
@@ -9,13 +8,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   const [query,setQuery]= useState({q:"tokyo",days:7});
-  const [units,setUnits] = useState("metric");
+  const [units,setUnits] = useState("Celsius");
   const [weather,setWeather] = useState(null);
 
 
   const getWeather = async() =>{
     const message = query.q  ?query.q : 'current location';
-    toast.info(`Fetching weather data for ${message.toUpperCase}`);
+    toast.info(`Fetching weather data for ${message.toUpperCase()}`);
     await getFormattedWeatherData({ ...query, units}).then((data) => {
       toast.success(`Fetched weather data for ${data.name}, ${data.country}`)
       setWeather(data);
@@ -24,26 +23,26 @@ const App = () => {
 
   useEffect(()=>{
     getWeather();
-  },[query,units]);
+  },[query]);
 
 
   const formatBackground = () =>{
     if(!weather) return 'from-cyan-600 to-blue-700';
     const threshold = units === 'metric' ? 20: 60
     if(weather.temp <=threshold) return 'from-cyan-600 to-blue-700'
-    return 'from-yellow-600 to-orange-700'
+    return 'bg-blue-800'
   };
 
 
   return (
-    <div className={`mx-auto max-w-screen-lg mt-4 py-5 px-32 bg-gradient-to-br shadow-xl shadow-gray-400 ${formatBackground()}`}>
-    <Inputs setQuery={setQuery} setUnits={setUnits}/>
+    <div className={`mx-auto max-w-screen-lg px-32 bg-gradient-to-br shadow-xl shadow-gray-400 ${formatBackground()}`}>
+    <Inputs setQuery={setQuery} units={units} setUnits={setUnits}/>
 
     {weather && 
     <>
     <TimeAndLocation weather={weather}/>
-    <TempAndDetails weather={weather}/>
-    <ForeCast title='3 day forecast' day={weather.day} data={weather.daily} />
+    <TempAndDetails weather={weather} units={units}/>
+    <ForeCast title='3 day forecast' day={weather.day} data={weather.daily} units={units}/>
     </>
     }
 

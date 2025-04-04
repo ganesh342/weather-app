@@ -1,6 +1,7 @@
 import {BiSearch,BiCurrentLocation} from "react-icons/bi";
 import {useState} from "react";
-const Inputs = ({setQuery,setUnits}) => {
+import Units from './Units';
+const Inputs = ({setQuery,units,setUnits}) => {
   const [city, setCity] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [filteredCities, setFilteredCities] = useState([]);
@@ -71,6 +72,7 @@ const Inputs = ({setQuery,setUnits}) => {
     setSelectedCity(suggestion);
     setCity(suggestion);
     setFilteredCities([]);
+    setQuery({q:suggestion,days:7});
   };
   const handleSearchClick = () =>{
     if(city !== "") setQuery({q:city,days:7});
@@ -78,6 +80,7 @@ const Inputs = ({setQuery,setUnits}) => {
    
   const handleInputChange = (e) => {
     const value = e.target.value;
+    setSelectedCity(value);
     setCity(value);
 
     // Filter cities based on input
@@ -91,51 +94,6 @@ const Inputs = ({setQuery,setUnits}) => {
     }
   };
 
-  function TopButtons() {
-    const cities = [
-      { id: 1, name: 'New York' },
-      { id: 2, name: 'Los Angeles' },
-      { id: 3, name: 'Chicago' },
-      { id: 4, name: 'Houston' },
-      { id: 5, name: 'Miami' }
-    ];
-  
-  
-    const handleCityChange = (event) => {
-      setSelectedCity(event.target.value);
-      setCity(event.target.value);
-      setQuery({q:event.target.value,days:7})
-    };
-
-
-    const handleSearch = () => {
-      // Add your search functionality here
-      console.log(`Searching in ${selectedCity}`);
-    };
-  
-    return (
-        <div className="flex items-center justify-start">
-          <select
-            value={"Select City"}
-            onChange={handleCityChange}
-            className="appearance-none bg-white border-none rounded-full py-5  w-60 text-base font-sans cursor-pointer shadow-md hover:shadow-lg focus:shadow-outline focus:outline-none transition-all duration-300"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E")`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'right 1rem center',
-              backgroundColor:'burlywood'
-            }}
-          >
-            <option value="">Select City</option>
-            {cities.map((city) => (
-              <option key={city.id} value={city.name}>
-                {city.name}
-              </option>
-            ))}
-          </select>
-        </div>
-    );
-  }
   // Example usage
   async function getCityFromLatLng(lat, lng) {
     // Construct the API URL with English language preference
@@ -185,44 +143,50 @@ const Inputs = ({setQuery,setUnits}) => {
   };
 
   return (
-    <div className="flex flex-row justify-start gap-7">
-      <TopButtons/>
-    <div className="flex flex-row justify-start">
-      <div className="flex flex-row justify-center my-6">
-        <div className="flex flex-row w-5/2 items-center justify-center space-x-4">
-          <input
-            type="text"
-            value={city}
-            onChange={handleInputChange}
-            placeholder="Search by city..."
-            className="text-gray-500 text-xl font-light p-5 w-full shadow-xl capitalize focus:outline-none placeholder:lowercase rounded-md"
-          />
-          <BiSearch
-            size={40}
-            className="cursor-pointer transition ease-out hover:scale-125 mx-4"
-            onClick={handleSearchClick}
-          />
-          <BiCurrentLocation
-            size={40}
-            className="cursor-pointer transition ease-out hover:scale-125"
-            onClick={handleLocationClick}
-          />
-        </div>
-      {filteredCities.length > 0 && (
-            <ul className="absolute z-10 w-1/4 bg-white border-2 border-gray-300 rounded-lg shadow-lg mt-11 max-h-60 overflow-y-auto">
-              {filteredCities.map((suggestion, index) => (
-                <li
-                  key={index}
-                  className="p-2 text-gray-700 cursor-pointer hover:bg-gray-100"
-                  onClick={() => handleSuggestionClick(suggestion)}
-                >
-                  {suggestion}
-                </li>
-              ))}
-            </ul>
-          )}
-    </div>
-    </div>
+    <div className="relative bg-gradient-to-r bg-blue-800 bg-opacity-90 p-4 flex items-center justify-between max-w-4xl mx-auto rounded-xl">
+      {/* Left Section: Location Icon */}
+      <div className="flex items-center space-x-4">
+        <button
+          onClick={handleLocationClick}
+          aria-label="Search for a location"
+          className="text-gray-600 hover:text-blue-600 bg-blue-500 p-3 rounded-full shadow-md hover:shadow-lg transition-all duration-200"
+          title="Use Current Location"
+        >
+          <BiCurrentLocation size={28} />
+        </button>
+        <Units setUnits={setUnits}/>
+      </div>
+
+      {/* Right Section: Search Input + Icon */}
+      <div className="relative flex items-center flex-1 max-w-lg ml-6 bg-blue-500 rounded-lg shadow-md">
+        <input
+          type="text"
+          value={selectedCity}
+          onChange={handleInputChange}
+          placeholder="Search by City..."
+          className="flex-1 p-4 text-black text-lg bg-transparent focus:outline-none capitalize placeholder:text-black font-semibold bg-blue-400"
+        />
+        <button
+          onClick={handleSearchClick}
+          className="text-gray-600 hover:text-blue-600 p-3 transition-transform duration-200 hover:scale-110"
+          title="Search"
+        >
+          <BiSearch size={28} className="bg-blue-500 border-black" />
+        </button>
+
+        {/* Filtered Cities Dropdown */}
+        {filteredCities.length > 0 && (
+          <ul className="absolute z-10 w-full bg-blue-500  border-gray-300 hidden:false rounded-lg shadow-lg top-full mt-1 max-h-60 overflow-hidden">
+            {filteredCities.map((suggestion, index) => (
+              <li
+                key={index}
+                className="p-3 text-black font-medium cursor-pointer hover:bg-gray-100 border-b border-gray-200 last:border-b-0 overflow-hidden"
+                onClick={() => handleSuggestionClick(suggestion)}
+              >
+                {suggestion}
+              </li>
+            ))} </ul>) }
+      </div>
     </div>
   );
 }

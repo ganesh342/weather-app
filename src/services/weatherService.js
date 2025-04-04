@@ -24,9 +24,10 @@ const formatToLocalTime = (
 ) => DateTime.fromSeconds(secs + offset ,{zone: "utc"}).toFormat(format);
 
 const formatCurrent = (data) =>{
+    console.log(data);
     const {
          location : {name,lat,lon,country,localtime,localtime_epoch,tz_id},
-         current : {temp_c,feelslike_c,dewpoint_c,heatindex_c,humidity,condition,wind_mph},
+         current : {temp_c,temp_f,feelslike_c,dewpoint_c,heatindex_c,heatindex_f,dewpoint_f,humidity,condition,wind_mph,precip_mm},
          timezone,
     } = data;
     const {icon} = condition;
@@ -44,15 +45,17 @@ const formatCurrent = (data) =>{
     const Offset = (val[3]=='+')?(hourOffset * 60 + minuteOffset):(-hourOffset * 60 - minuteOffset);
     const local=formatToLocalTime(localtime_epoch,Offset*60);
     const daily = forecastday.map((f)=>({
-        temp: f.day.avgtemp_c,
+        tempc: f.day.avgtemp_c,
+        tempf: f.day.avgtemp_f,
+        text : f.day.condition.text,
         title: formatToLocalTime(localtime_epoch,Offset*60,"cccc"),
         icon: iconUrlFromCode(f.day.condition.icon),
         date: f.date,
        }));
     const details = forecastday[0].day.condition.text;
     return {
-        temp_c,feelslike_c,dewpoint_c,heatindex_c,humidity,details,country,sunrise,
-        sunset,wind_mph,name,icons,local,timezone,lat,lon,day,daily
+        temp_c,temp_f,feelslike_c,dewpoint_c,heatindex_c,heatindex_f,dewpoint_f,humidity,details,country,sunrise,
+        sunset,wind_mph,name,icons,local,timezone,lat,lon,day,daily,precip_mm
     };
 }
 
