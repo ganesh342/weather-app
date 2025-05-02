@@ -143,9 +143,9 @@ const Inputs = ({setQuery,units,setUnits}) => {
   };
 
   return (
-    <div className="relative bg-gradient-to-r bg-blue-800 bg-opacity-90 p-4 flex items-center justify-between max-w-4xl mx-auto rounded-xl">
+    <div className="relative bg-gradient-to-r bg-blue-800 bg-opacity-90 p-4 flex flex-col md:flex-row items-center justify-between max-w-4xl mx-auto rounded-xl">
       {/* Left Section: Location Icon */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center justify-center md:justify-between gap-x-20 md:gap-x-0 space-x-4">
         <button
           onClick={handleLocationClick}
           aria-label="Search for a location"
@@ -158,7 +158,7 @@ const Inputs = ({setQuery,units,setUnits}) => {
       </div>
 
       {/* Right Section: Search Input + Icon */}
-      <div className="relative flex items-center flex-1 max-w-lg ml-6 bg-blue-500 rounded-lg shadow-md">
+      <div className="relative flex items-center flex-1 mt-10 md:mt-0 max-w-lg ml-6 bg-blue-500 rounded-lg shadow-md">
         <input
           type="text"
           value={selectedCity}
@@ -191,4 +191,4 @@ const Inputs = ({setQuery,units,setUnits}) => {
   );
 }
 
-export default Inputs;
+export default Inputs; 

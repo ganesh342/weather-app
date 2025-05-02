@@ -113,7 +113,7 @@ const TempAndDetails = ({ weather , units}) => {
       id: 1,
       Icon: FaThermometerEmpty,
       title: "Real Feel",
-      value: `${(units === "Celsius")? `${weather.temp_c}°c` :`${weather.temp_f}°f`}`,
+      value: `${units === "Celsius"? `${weather.temp_c}°c` :`${weather.temp_f}°f`}`,
     },
     {
       id: 2,
@@ -152,13 +152,13 @@ const TempAndDetails = ({ weather , units}) => {
       id: 3,
       Icon: MdKeyboardArrowUp,
       title: "High",
-      value: `${(units === "Celsius")? `${weather.heatindex_c}°c` :`${weather.heatindex_f}°f`}`,
+      value: `${units === "Celsius"? `${weather.heatindex_c}°c` :`${weather.heatindex_f}°f`}`,
     },
     {
       id: 4,
       Icon: MdKeyboardArrowDown,
       title: "Low",
-      value: `${(units === "Celsius")? `${weather.dewpoint_c}°c` :`${weather.dewpoint_f}°f`}`,
+      value: `${units === "Celsius"? `${weather.dewpoint_c}°c` :`${weather.dewpoint_f}°f`}`,
     },
   ];
 
@@ -170,9 +170,9 @@ const TempAndDetails = ({ weather , units}) => {
       </div>
 
       {/* Main Weather Info */}
-      <div className="flex flex-row items-start justify-between py-3 space-x-4">
+      <div className="flex flex-col md:flex-row items-start justify-between py-3 space-x-4">
         {/* Primary Details (Card Layout) */}
-        <div className="grid grid-cols-4 gap-4 w-full">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
           {verticalDetails.map(({ id, Icon, title, value }) => (
             <div
               key={id}

@@ -11,7 +11,7 @@ const ForeCast = ({ title, day, data, units}) => {
       </div>
       <hr className="border-gray-300 mb-3" />
 
-      <div className="flex items-center justify-around gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-around gap-10">
         {data &&
           data.map((d, index) => (
             <div
@@ -35,5 +35,5 @@ const ForeCast = ({ title, day, data, units}) => {
   );
 };
 
-export default ForeCast;
+export default ForeCast
 
