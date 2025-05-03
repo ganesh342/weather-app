@@ -5,7 +5,7 @@ const len = 7;
 
 const DailyForeCast = ({ title, day, data, units}) => {
   return (
-    <div className="bg-blue-800 shadow-lg rounded-lg p-4 max-w mx-auto mt-4">
+    <div className="bg-blue-800 shadow-sm rounded-lg p-4 max-w mx-auto mt-4">
       <div className="flex items-center justify-between mb-3">
         <p className="text-xl font-semibold text-gray-800 uppercase">{title}</p>
       </div>
