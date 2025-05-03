@@ -1,16 +1,26 @@
 import Inputs from "./components/Inputs";
 import TimeAndLocation from "./components/TimeAndLocation";
 import TempAndDetails from "./components/TempAndDetails";
-import ForeCast from "./components/ForeCast";
-import getFormattedWeatherData from "./services/weatherService";
+import DailyForeCast from "./components/DailyForeCast";
+import getFormattedWeatherData from "./services/DailyweatherService";
+import fetchHourlyWeatherData from "./services/HourlyweatherService";
 import {useState,useEffect} from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import HourlyForeCast from "./components/HourlyForeCast";
 const App = () => {
   const [query,setQuery]= useState({q:"tokyo",days:7});
   const [units,setUnits] = useState("Celsius");
   const [weather,setWeather] = useState(null);
-
+  const [hourlyWeather,setHourlyWeather] = useState(null);
+  
+  const getHourlyWeather = async () => {
+    const message = query.q  ?query.q : 'current location';
+    toast.info(`Fetching hourly weather data for ${message.toUpperCase()}`);
+    await fetchHourlyWeatherData(message).then((data) => {
+      setHourlyWeather(data);
+    })
+  }
 
   const getWeather = async() =>{
     const message = query.q  ?query.q : 'current location';
@@ -23,6 +33,7 @@ const App = () => {
 
   useEffect(()=>{
     getWeather();
+    getHourlyWeather();
   },[query]);
 
 
@@ -42,7 +53,10 @@ const App = () => {
     <>
     <TimeAndLocation weather={weather}/>
     <TempAndDetails weather={weather} units={units}/>
-    <ForeCast title='3 day forecast' day={weather.day} data={weather.daily} units={units}/>
+    {hourlyWeather && 
+    <HourlyForeCast title='Hourly forecast' hour={hourlyWeather.initialHour} data={hourlyWeather.hourly} units={units} />
+    }
+    <DailyForeCast title='3 day forecast' day={weather.day} data={weather.daily} units={units}/>
     </>
     }
 

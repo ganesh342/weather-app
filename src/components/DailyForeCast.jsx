@@ -3,7 +3,7 @@ import { useState } from 'react';
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const len = 7;
 
-const ForeCast = ({ title, day, data, units}) => {
+const DailyForeCast = ({ title, day, data, units}) => {
   return (
     <div className="bg-blue-800 shadow-lg rounded-lg p-4 max-w mx-auto mt-4">
       <div className="flex items-center justify-between mb-3">
@@ -35,5 +35,5 @@ const ForeCast = ({ title, day, data, units}) => {
   );
 };
 
-export default ForeCast
+export default DailyForeCast
 
