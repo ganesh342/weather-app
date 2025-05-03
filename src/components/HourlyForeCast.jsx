@@ -26,7 +26,7 @@ const HourlyForeCast = ({ title , hour, data, units}) => {
                 alt="weather-icon"
                 className="w-16 h-16 my-2 rounded-full"
               />
-              <p className="text-lg font-bold text-gray-700">{(units === "Celsius")? `${d.tempC}°c` :`${d.tempF}°f`}</p>
+              <p className="text-lg font-bold text-white">{(units === "Celsius")? `${d.tempC}°c` :`${d.tempF}°f`}</p>
               <p className="text-xs text-black font-italic">{d.text}</p>
             </div>
           ))}

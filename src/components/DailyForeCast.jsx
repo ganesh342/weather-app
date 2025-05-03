@@ -26,7 +26,7 @@ const DailyForeCast = ({ title, day, data, units}) => {
                 alt="weather-icon"
                 className="w-16 h-16 my-2 shadow-md rounded-full"
               />
-              <p className="text-lg font-bold text-gray-700">{(units === "Celsius")? `${d.tempc}°c` :`${d.tempf}°f`}</p>
+              <p className="text-lg font-bold text-white">{(units === "Celsius")? `${d.tempc}°c` :`${d.tempf}°f`}</p>
               <p className="text-sm text-black font-italic">{d.text}</p>
             </div>
           ))}
