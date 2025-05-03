@@ -5,13 +5,13 @@ const len = 24;
 
 const HourlyForeCast = ({ title , hour, data, units}) => {
   return (
-    <div className="bg-blue-800 shadow-sm rounded-lg p max-w mx-auto mt-4">
+    <div className="shadow-sm rounded-lg p max-w mx-auto mt-4 bg-blue-800">
       <div className="flex items-center justify-between mb-3">
         <p className="text-xl font-semibold text-gray-800 uppercase">{title}</p>
       </div>
       <hr className="border-gray-300 mb-3" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-8 items-center justify-around gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 items-center justify-around gap-10">
         {data &&
           data.map((d, index) => (
             <div
@@ -27,7 +27,7 @@ const HourlyForeCast = ({ title , hour, data, units}) => {
                 className="w-16 h-16 my-2 rounded-full"
               />
               <p className="text-lg font-bold text-white">{(units === "Celsius")? `${d.tempC}°c` :`${d.tempF}°f`}</p>
-              <p className="text-xs text-black font-italic">{d.text}</p>
+              <p className="text-sm text-black font-italic">{d.text}</p>
             </div>
           ))}
       </div>

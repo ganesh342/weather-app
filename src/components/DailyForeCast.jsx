@@ -16,15 +16,15 @@ const DailyForeCast = ({ title, day, data, units}) => {
           data.map((d, index) => (
             <div
               key={index}
-              className="flex flex-col flex-1 items-center justify-center min-w-[100px] max-w-[200px] p-3 aspect-square bg-gradient-to-b from-blue-500 to-blue-600 rounded-lg shadow-md transition-transform transform hover:scale-105"
+              className="flex flex-col flex-1 items-center justify-center min-w-[100px] max-w-[200px] p-3 aspect-square rounded-lg shadow-sm transition-transform transform hover:scale-105"
             >
-              <p className="text-sm font-medium text-gray-600">
+              <p className="text-sm font-medium text-gray-900">
                 {days[(index + day + 1) % len]}
               </p>
               <img
                 src={d.icon}
                 alt="weather-icon"
-                className="w-16 h-16 my-2 shadow-md rounded-full"
+                className="w-16 h-16 my-2 shadow-sm rounded-full"
               />
               <p className="text-lg font-bold text-white">{(units === "Celsius")? `${d.tempc}°c` :`${d.tempf}°f`}</p>
               <p className="text-sm text-black font-italic">{d.text}</p>

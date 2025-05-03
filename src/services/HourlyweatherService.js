@@ -15,7 +15,7 @@ const fetchHourlyWeatherData = async (city) => {
       // Get the hour from dt_txt or dt
       const initialHour = new Date(firstEntry.dt * 1000).getHours();
 
-        const hourly = data.list.slice(0, 8).map((item) => {
+        const hourly = data.list.slice(0, 7).map((item) => {
           const tempC = item.main.temp;
           const tempF = (tempC * 9 / 5) + 32; // Convert Celsius to Fahrenheit
           const iconURL = `https://openweathermap.org/img/wn/${item.weather[0].icon}.png`;
